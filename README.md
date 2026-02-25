@@ -8,9 +8,7 @@ No accounts required — nicknames only.
 
 ## Deploy to Azure
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYOUR_ORG%2FYOUR_REPO%2Fmain%2Fsrc%2Fiac%2Fazuredeploy.json)
-
-> **Before clicking:** replace `YOUR_ORG` and `YOUR_REPO` in the URL above with your GitHub organisation/username and repository name. The button links directly to the Azure Portal custom-deployment page with the ARM template pre-loaded.
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcppxaxa%2Fmultiplayer-game-who-is-spy%2Fmain%2Fsrc%2Fiac%2Fazuredeploy.json)
 
 The template provisions:
 
