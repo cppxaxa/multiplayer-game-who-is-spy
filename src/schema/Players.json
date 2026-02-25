@@ -1,0 +1,6 @@
+{
+  "tableName": "Players",
+  "partitionKey": "RoomCode",
+  "rowKey": "PlayerId",
+  "columns": ["Nickname", "IsSpy", "IsEliminated", "JoinedAt"]
+}

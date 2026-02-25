@@ -1,0 +1,6 @@
+{
+  "tableName": "Votes",
+  "partitionKey": "{RoomCode}_R{RoundNumber}",
+  "rowKey": "VoterPlayerId",
+  "columns": ["TargetPlayerId", "CastAt"]
+}

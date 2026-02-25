@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Who Is the Spy?</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <header class="site-header d-flex align-items-center justify-content-between">
+    <a href="/" class="brand">🕵️ Who Is the Spy?</a>
+    <div class="d-flex align-items-center gap-2">
+      <span id="phase-badge" class="phase-badge phase-badge--waiting d-none"
+            aria-live="polite" aria-label="Current phase: Waiting">Waiting</span>
+      <span class="badge" style="background:var(--color-warning);color:#000;font-size:0.75rem;">
+        Admin Panel
+      </span>
+    </div>
+  </header>
+
+  <main id="main-content" class="container-xl py-4">
+
+    <!-- ─── Create room section ─────────────────────────────────────────────── -->
+    <section id="section-create" aria-labelledby="heading-create">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-header" id="heading-create">Create a New Room</div>
+            <div class="card-body">
+
+              <div class="mb-3">
+                <label for="input-admin-pass" class="form-label">Admin Password</label>
+                <input type="password" id="input-admin-pass" class="form-control"
+                       placeholder="Enter admin password" autocomplete="current-password"
+                       aria-required="true" />
+              </div>
+
+              <div class="mb-3">
+                <label for="input-max-players" class="form-label">
+                  Max Players: <strong id="max-players-display">20</strong>
+                </label>
+                <input type="range" id="input-max-players" class="form-range"
+                       min="2" max="30" value="20"
+                       oninput="document.getElementById('max-players-display').textContent=this.value" />
+              </div>
+
+              <div class="mb-3">
+                <label for="input-turn-secs-create" class="form-label">
+                  Turn Duration: <strong id="turn-secs-create-display">60s</strong>
+                </label>
+                <input type="range" id="input-turn-secs-create" class="form-range"
+                       min="15" max="300" step="5" value="60" />
+              </div>
+
+              <div class="mb-3">
+                <label for="input-voting-secs-create" class="form-label">
+                  Voting Duration: <strong id="voting-secs-create-display">120s</strong>
+                </label>
+                <input type="range" id="input-voting-secs-create" class="form-range"
+                       min="30" max="300" step="10" value="120" />
+              </div>
+
+              <button id="btn-create-room" class="btn btn-primary w-100">
+                Create Room
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Room management section (shown after creation) ─────────────────── -->
+    <section id="section-room" class="d-none" aria-labelledby="heading-room">
+      <div class="row g-3">
+
+        <!-- ── Left column: room info + controls ──────────────────────────── -->
+        <div class="col-lg-5">
+
+          <!-- Room card -->
+          <div class="card mb-3">
+            <div class="card-header" id="heading-room">Room</div>
+            <div class="card-body text-center">
+              <div class="room-code mb-1" id="display-room-code" aria-label="Room code">——</div>
+              <p class="text-muted small mb-2">Shareable link:</p>
+              <a id="display-room-link" href="#" class="small text-break" target="_blank">#</a>
+              <button id="btn-copy-link" class="btn btn-sm btn-outline-primary mt-2 w-100">
+                📋 Copy Link
+              </button>
+            </div>
+          </div>
+
+          <!-- Round controls card -->
+          <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span>Round Controls</span>
+              <span id="display-phase" class="badge bg-secondary">—</span>
+            </div>
+
+            <!-- Admin timer bar -->
+            <div id="admin-timer-wrap" class="d-none px-3 pt-3 pb-0">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <small class="text-muted fw-600">Timer</small>
+                <small id="admin-timer-label" aria-live="polite" class="text-muted">—</small>
+                <span id="admin-timer-paused" class="badge bg-warning text-dark d-none ms-1">⏸ PAUSED</span>
+              </div>
+              <div class="progress mb-3" style="height:8px;background:var(--color-border);">
+                <div id="admin-timer-bar" class="progress-bar timer-bar timer-bar--safe"
+                     role="progressbar" style="width:100%"
+                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body d-flex gap-2 flex-wrap">
+              <button id="btn-start-round" class="btn btn-primary btn-sm flex-grow-1">
+                ▶ Start Round
+              </button>
+              <button id="btn-advance" class="btn btn-outline-primary btn-sm flex-grow-1">
+                ⏭ Advance
+              </button>
+              <button id="btn-skip-to-voting" class="btn btn-outline-warning btn-sm flex-grow-1 d-none">
+                🗳️ Start Voting
+              </button>
+<button id="btn-pause-resume" class="btn btn-warning btn-sm flex-grow-1 d-none">
+                ⏸ Pause Timer
+              </button>
+            </div>
+            <div class="card-body pt-0">
+              <button id="btn-reset-game" class="btn btn-outline-danger btn-sm w-100 mt-2">
+                🔄 Reset Game
+              </button>
+            </div>
+          </div>
+
+          <!-- Live duration settings card -->
+          <div class="card">
+            <div class="card-header">⏱ Adjust Durations</div>
+            <div class="card-body">
+
+              <div class="mb-3">
+                <label for="input-turn-secs" class="form-label">
+                  Turn Duration: <strong id="turn-secs-display">60s</strong>
+                </label>
+                <input type="range" id="input-turn-secs" class="form-range"
+                       min="15" max="300" step="5" value="60" />
+              </div>
+
+              <div class="mb-3">
+                <label for="input-voting-secs" class="form-label">
+                  Voting Duration: <strong id="voting-secs-display">120s</strong>
+                </label>
+                <input type="range" id="input-voting-secs" class="form-range"
+                       min="30" max="300" step="10" value="120" />
+              </div>
+
+              <button id="btn-apply-duration" class="btn btn-outline-warning btn-sm w-100">
+                💾 Apply Duration
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── Right column: player list ──────────────────────────────────── -->
+        <div class="col-lg-7">
+          <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span>Players</span>
+              <small id="player-count-summary" class="text-muted"></small>
+            </div>
+
+            <!-- Word pair strip (shown once a round starts) -->
+            <div id="display-words" class="d-none px-3 pt-3 pb-1">
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge rounded-pill bg-success fs-6 px-3 py-2">
+                  Civilian: <strong id="display-civilian-word">—</strong>
+                </span>
+                <span class="badge rounded-pill bg-danger fs-6 px-3 py-2">
+                  Spy: <strong id="display-spy-word">—</strong>
+                </span>
+              </div>
+            </div>
+
+            <div class="card-body" style="max-height:60vh;overflow-y:auto;">
+              <ul id="player-list" class="player-list" aria-live="polite" aria-label="Player list">
+                <li class="text-muted small p-2">Waiting for players…</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Vote roster (visible only during Voting phase) -->
+          <div id="vote-roster-wrap" class="card d-none">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span>🗳️ Votes Cast</span>
+              <small id="vote-roster-progress" class="text-muted" aria-live="polite"></small>
+            </div>
+            <div class="card-body p-2">
+              <ul id="vote-roster-list" class="vote-roster" aria-live="polite" aria-label="Votes cast">
+                <li class="text-muted small p-2">No votes cast yet…</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Game over modal -->
+  <div class="modal fade" id="gameOverModal" tabindex="-1"
+       role="dialog" aria-labelledby="gameOverModalLabel" aria-modal="true"
+       data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center" id="game-over-modal-content">
+        <div class="modal-body py-5 px-4">
+          <div id="game-over-icon" style="font-size:3.5rem;margin-bottom:.75rem;" aria-hidden="true"></div>
+          <h2 class="h4 mb-2" id="gameOverModalLabel"></h2>
+          <p class="mb-2" id="game-over-subtitle" class="text-muted"></p>
+          <p class="fw-bold fs-5 mb-4" id="game-over-spy-reveal"></p>
+          <button type="button" class="btn btn-primary btn-lg"
+                  data-bs-dismiss="modal" aria-label="Close game over screen">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/shared/api.js"></script>
+  <script src="js/shared/polling.js"></script>
+  <script src="js/shared/toast.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

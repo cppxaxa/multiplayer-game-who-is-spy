@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
+      "value": "whoisspystorage"
+    },
+    "webAppName": {
+      "value": "whoisspy-app"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "adminPass": {
+      "value": "REPLACE_WITH_SECURE_PASSWORD"
+    },
+    "appServicePlanSku": {
+      "value": "B1"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Bash(cd C:\\\\L1\\\\WhoIsSpy\\\\src && dotnet build 2>&1)",
+      "Bash(cd /c/L1/WhoIsSpy/src && dotnet build 2>&12)",
+      "Bash(dotnet nuget:*)",
+      "Bash(cd /c/L1/WhoIsSpy/src && dotnet build 2>&1)",
+      "Bash(cd /c/L1/WhoIsSpy/tests && dotnet test --verbosity normal 2>&1)",
+      "Bash(tail:*)",
+      "WebSearch",
+      "Bash(node:*)",
+      "Bash(npm install:*)",
+      "Bash(dotnet build:*)",
+      "Bash(curl:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(head:*)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(cat:*)",
+      "Bash(dotnet run:*)",
+      "Bash(pwsh:*)",
+      "Bash(dir:*)",
+      "Bash(del:*)",
+      "Bash(dotnet test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

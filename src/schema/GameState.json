@@ -1,0 +1,6 @@
+{
+  "tableName": "GameState",
+  "partitionKey": "RoomCode",
+  "rowKey": "RoundNumber",
+  "columns": ["CivilianWord", "SpyWord", "CurrentTurnPlayerId", "TurnEndsAt", "Phase"]
+}

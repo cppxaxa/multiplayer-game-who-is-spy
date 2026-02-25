@@ -1,0 +1,6 @@
+{
+  "tableName": "Rooms",
+  "partitionKey": "RoomCode",
+  "rowKey": "RoomCode",
+  "columns": ["Status", "CurrentRound", "CreatedAt", "MaxPlayers"]
+}

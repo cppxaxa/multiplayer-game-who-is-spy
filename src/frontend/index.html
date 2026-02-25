@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join — Who Is the Spy?</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <header class="site-header d-flex align-items-center justify-content-between">
+    <span class="brand">🕵️ Who Is the Spy?</span>
+    <a href="/admin.html" class="btn btn-sm btn-outline-primary">Host a Game</a>
+  </header>
+
+  <main id="main-content" class="container-xl py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6">
+
+        <div class="text-center mb-4">
+          <h1 class="h3 fw-bold" style="color:var(--color-primary)">Join a Game</h1>
+          <p class="text-muted small">
+            Enter the room code and pick a nickname to start playing.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="input-room-code" class="form-label">Room Code</label>
+              <input type="text" id="input-room-code" class="form-control text-center fw-bold"
+                     placeholder="ABC123" maxlength="6" autocomplete="off"
+                     aria-required="true"
+                     style="font-size:1.4rem;letter-spacing:0.2em;text-transform:uppercase" />
+            </div>
+            <div class="mb-3">
+              <label for="input-nickname" class="form-label">Nickname</label>
+              <input type="text" id="input-nickname" class="form-control"
+                     placeholder="e.g. Alice" maxlength="20"
+                     autocomplete="nickname" aria-required="true" />
+            </div>
+            <div id="join-error" role="alert" aria-live="assertive"
+                 class="text-danger small mb-2"></div>
+            <button id="btn-join" class="btn btn-primary w-100">
+              Join Game →
+            </button>
+          </div>
+        </div>
+
+        <p class="text-center text-muted small mt-4">
+          Hosting? <a href="/admin.html">Open the Admin Panel</a>
+        </p>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/shared/api.js"></script>
+  <script src="js/shared/toast.js"></script>
+  <script src="js/lobby.js"></script>
+</body>
+</html>
