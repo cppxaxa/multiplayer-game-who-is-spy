@@ -91,9 +91,23 @@
           "appSettings": [
             { "name": "AdminPass", "value": "[parameters('adminPass')]" },
             { "name": "StorageAccountName", "value": "[parameters('storageAccountName')]" },
-            { "name": "ASPNETCORE_ENVIRONMENT", "value": "Production" }
+            { "name": "ASPNETCORE_ENVIRONMENT", "value": "Production" },
+            { "name": "PROJECT", "value": "src/WhoIsSpy.csproj" }
           ]
         }
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/sourcecontrols",
+      "apiVersion": "2023-01-01",
+      "name": "[concat(parameters('webAppName'), '/web')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+      ],
+      "properties": {
+        "repoUrl": "https://github.com/cppxaxa/multiplayer-game-who-is-spy",
+        "branch": "main",
+        "isManualIntegration": true
       }
     },
     {
