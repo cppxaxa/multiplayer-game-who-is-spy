@@ -32,7 +32,7 @@
   },
   "variables": {
     "appServicePlanName": "[concat(parameters('webAppName'), '-plan')]",
-    "storageTableDataContributorRoleId": "0c798ed8-6518-4a0d-8d92-5a3b0a58ef65"
+    "storageTableDataContributorRoleId": "0a9a7e1f-b9d0-4cc4-a60d-0319b160aaa3"
   },
   "resources": [
     {
