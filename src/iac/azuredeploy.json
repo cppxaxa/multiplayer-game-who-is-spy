@@ -23,12 +23,16 @@
       "type": "string",
       "defaultValue": "B1",
       "metadata": { "description": "App Service Plan SKU (e.g. B1, B2, S1)." }
+    },
+    "createdTimestamp": {
+      "type": "string",
+      "defaultValue": "[utcNow('yyyy-MM-dd HH:mm:ss')]",
+      "metadata": { "description": "Deployment timestamp applied as a resource tag." }
     }
   },
   "variables": {
     "appServicePlanName": "[concat(parameters('webAppName'), '-plan')]",
-    "storageTableDataContributorRoleId": "0c798ed8-6518-4a0d-8d92-5a3b0a58ef65",
-    "createdTimestamp": "[utcNow('yyyy-MM-dd HH:mm:ss')]"
+    "storageTableDataContributorRoleId": "0c798ed8-6518-4a0d-8d92-5a3b0a58ef65"
   },
   "resources": [
     {
@@ -38,7 +42,7 @@
       "properties": {
         "tags": {
           "ephemeral": "true",
-          "Created": "[variables('createdTimestamp')]"
+          "Created": "[parameters('createdTimestamp')]"
         }
       }
     },
